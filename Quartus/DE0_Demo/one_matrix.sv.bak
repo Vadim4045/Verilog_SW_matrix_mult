@@ -1,0 +1,133 @@
+module one_matrix (input [bits-1:0] in,
+						input [n*n*bits:0] mem_in,
+						input [9:0] addr,
+						input wr_one, wr_all, clk, rst,
+						output reg [bits-1:0] one_out,
+						output [n*n*bits:0] mem_out;
+						output ready);
+						
+
+reg stored;						
+reg [16-1:0]map;						
+reg [512-1:0] mem;
+
+assign ready = &map;
+assugn mem_out = mem;
+
+always @(posedge clk or negedge rst or posedge wr_all or posedge wr_one)
+		if(~rst) begin
+			stored <= 1'b0;
+			mem <= 'h0;
+			map <= 'h0;
+		end
+		else begin
+			if(wr_all) begin
+				
+				mem <= mem_in;
+				map <= ~('h0);
+				stored <= 1'b1;
+			
+			end else if(~stored & wr_one) begin
+				case (addr)
+					10'h0: begin
+						if(wr_en) begin
+							mem[32-1:0] <= in;
+							map[0] <= 1'b1;
+						end else one_out = mem[32-1:0];	
+					end
+					10'h4: begin
+						if(wr_en) begin
+							mem[2*32-1:1*32] <= in;
+							map[1] <= 1'b1;
+						end else one_out = mem[2*32-1:1*32];	
+					end
+					10'h8: begin
+						if(wr_en) begin
+							mem[3*32-1:2*32] <= in;
+							map[2] <= 1'b1;
+						end else one_out = mem[3*32-1:2*32];	
+					end
+					10'hc: begin
+						if(wr_en) begin
+							mem[4*32-1:3*32] <= in;
+							map[3] <= 1'b1;
+						end else one_out = mem[4*32-1:3*32];	
+					end
+					10'h10: begin
+						if(wr_en) begin
+							mem[5*32-1:4*32] <= in;
+							map[4] <= 1'b1;
+						end else one_out = mem[5*32-1:4*32];	
+					end
+					10'h14: begin
+						if(wr_en) begin
+							mem[6*32-1:5*32] <= in;
+							map[5] <= 1'b1;
+						end else one_out = mem[6*32-1:5*32];	
+					end
+					10'h18: begin
+						if(wr_en) begin
+							mem[7*32-1:6*32] <= in;
+							map[6] <= 1'b1;
+						end else one_out = mem[7*32-1:6*32];	
+					end
+					10'h1c: begin
+						if(wr_en) begin
+							mem[8*32-1:7*32] <= in;
+							map[7] <= 1'b1;
+						end else one_out = mem[8*32-1:7*32];	
+					end
+					10'h20: begin
+						if(wr_en) begin
+							mem[9*32-1:8*32] <= in;
+							map[8] <= 1'b1;
+						end else one_out = mem[9*32-1:8*32];	
+					end
+					10'h24: begin
+						if(wr_en) begin
+							mem[10*32-1:9*32] <= in;
+							map[9] <= 1'b1;
+						end else one_out = mem[10*32-1:9*32];	
+					end
+					10'h28: begin
+						if(wr_en) begin
+							mem[11*32-1:10*32] <= in;
+							map[10] <= 1'b1;
+						end else one_out = mem[11*32-1:10*32];	
+					end
+					10'h2c: begin
+						if(wr_en) begin
+							mem[12*32-1:11*32] <= in;
+							map[11] <= 1'b1;
+						end else one_out = mem[12*32-1:11*32];	
+					end
+					10'h30: begin
+						if(wr_en) begin
+							mem[13*32-1:12*32] <= in;
+							map[12] <= 1'b1;
+						end else one_out = mem[13*32-1:12*32];	
+					end
+					10'h34: begin
+						if(wr_en) begin
+							mem[14*32-1:13*32] <= in;
+							map[13] <= 1'b1;
+						end else one_out = mem[14*32-1:13*32];	
+					end
+					10'h38: begin
+						if(wr_en) begin
+							mem[15*32-1:14*32] <= in;
+							map[14] <= 1'b1;
+						end else one_out = mem[15*32-1:15*32];	
+					end
+					10'h3c: begin
+						if(wr_en) begin
+							mem[16*32-1:15*32] <= in;
+							map[15] <= 1'b1;
+						end else one_out = mem[16*32-1:15*32];	
+					end
+				endcase
+			end
+		end
+						
+						
+endmodule

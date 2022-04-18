@@ -1,0 +1,12 @@
+module MATRIX_MULTIPICATOR #(parameter BITS=8, N=8)
+									(input [N*N*BITS-1:0] A,B,
+									 input go,rst,
+									 output [N*N*BITS-1:0] C);
+									 
+									 
+									 
+									 
+									 
+MAT_MULT #(.BITS(8), .N(8))(.A(), .B(), .C());					 
+									 
+endmodule

@@ -1,0 +1,19 @@
+module PART_MULT #(parameter BITS=8, N=8)
+						(input [N*N*BITS-1:0] A,B,
+						input [3:0] step,
+						output [N*N*BITS-1:0] RES,
+						output [3:0] store);
+						
+						
+reg [N*N*BITS-1:0] c;
+reg[15:0]map;
+
+wire [31:0]from_a;
+wire [63:0] to_c;
+		
+						
+						
+	MULT #(.BITS(BITS), .N(N))(.from_a(), .from_b(), .to_c());				
+						
+endmodule
+						

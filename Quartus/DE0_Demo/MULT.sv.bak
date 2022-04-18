@@ -1,0 +1,26 @@
+module MULT #(parameter BITS=8, N=8)
+				(input [63:0] from_a,
+				 input [N*N*BITS-1:0] from_b,
+				 output reg [63:0] to_c);
+
+
+genvar i,j;
+
+generate
+
+	for(i=0;i<N;i=i+1) begin: i_loop
+		
+		wire [BITS-1:0] tmp;
+		initial tmp='h0;
+		
+		for(j=0;j<N;j=j+1) begin: j_loop	
+			assign tmp = tmp + from_a[BITS*(j+1)-1:BITS*j]*from_b[BITS*(j*N+i+1)-1:BITS*(j*N+i)];	
+		end
+		
+		assign to_c [BITS*(i+1)-1:BITS*i] = tmp;
+		
+	end
+
+endgenerate
+				
+endmodule

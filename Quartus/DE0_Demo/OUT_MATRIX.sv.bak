@@ -1,0 +1,58 @@
+module OUT_MATRIX #(parameter BITS=8, N=8, WIDTH=4, OFFCET=0)
+						(input [WIDTH*BITS-1:0] in [1:0],
+						input [addr_width-1:0]in_addr,
+						input rst,clk,wr_en,
+						output reg [BITS*WIDTH-1:0] out_all,
+						output stored, ready);
+						
+
+
+localparam addr_width = log2(N*N/WIDTH);
+
+wire select = (in_addr >= 'h0) & (in_addr < N*N/WIDTH);
+
+reg [BITS*WIDTH-1:0] all [N*N/WIDTH-1:0];
+reg [N*N/WIDTH-1:0] map;
+
+assign ready = &map;
+
+always @(posedge clk or negedge rst)
+begin
+
+	if(~rst) begin
+	
+		integer j;
+		
+		for(j=0;j<N*N/WIDTH;j=j+1) begin
+			out_all[j] <= 'h0;
+		end
+	
+		map <= 'h0;
+		
+	end else begin
+		
+		if(select&wr_en) begin
+			
+			if(in_addr[0]) begin
+			
+			end else begin
+			
+			end
+		
+			all [in_addr] <= in;
+			map [in_addr] <= 1'b1;
+			stored = 1'b1;
+		
+		end else stored = 1'b0;
+		
+	end
+
+end
+						
+endmodule
+
+
+function integer log2;
+input [31:0] value;	
+	for (log2=0; value>0; value = value/2) log2=log2+1;	
+endfunction
